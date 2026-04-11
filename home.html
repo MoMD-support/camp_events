@@ -380,7 +380,7 @@
         >
 
 
-            <small>يمكنك رفع أكثر من ملف بحد أقصى 100MB لكل ملف</small>
+            <small>يمكنك رفع أكثر من ملف بحد أقصى 70MB لكل ملف</small>
             <div id="file-list" style="margin-top: 50px; text-align: right;"></div>
              <div id="filesError" class="error-text">⚠️ الرجاء رفع ملف واحد على الأقل</div>
         </div>
@@ -420,8 +420,8 @@
             // إضافة الملفات الجديدة إلى القائمة
             files.forEach(file => {
                 // التحقق من حجم الملف
-                if (file.size > 100 * 1024 * 1024) {
-                    alert(`الملف "${file.name}" 10كبير جداً. الحد الأقصى 0MB`);
+                if (file.size > 70 * 1024 * 1024) {
+                    alert(`الملف "${file.name}" 7كبير جداً. الحد الأقصى 0MB`);
                     return;
                 }
                 
@@ -534,14 +534,17 @@
             messageEl.style.display = "block";
             
             try {
-              
+              // تنظيف المدخلات 
+        function clean(input) {
+        return input.replace(/[<>]/g, "");
+        }
                  
                 
 
                 // تحضير البيانات الأساسية
                 const formData = {
                     gov: document.getElementById("gov").value.trim(),
-                    camp_name: document.getElementById("camp_name").value.trim(),
+                   camp_name: document.getElementById("camp_name").value.trim(),
                     Dactive: document.getElementById("Dactive").value,
                     pactive: document.getElementById("pactive").value.trim(),
                     active_name: document.getElementById("active_name").value.trim(),
