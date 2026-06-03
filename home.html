@@ -302,18 +302,20 @@
     
     <form id="dataForm">
              <div class="form-group">
-            <select id="gov" required>
+            <select id="gov" required onchange="updateCamps()>
                 <option value="">اختر الاجابة</option>
                 <option value="اربيل">اربيل</option>
                 <option value="دهوك">دهوك</option>
-                  <option value="السليمانية">السليمانية</option>
+                 
                  </select>
                  <label for="gov">المحافظة<span class="required-star">*</span></label>
            </div>
 
            <div class="form-group">
-            <input type="text" id="camp_name" placeholder="جهة النشاط" required>
-            <label>المخيم (او جهة النشاط)<span class="required-star">*</span></label>
+            <select id="camp_name" required>
+             <option value="">اختر المحافظة أولاً</option>
+          </select>
+             <label for="camp_name">اسم المخيم <span class="required-star">*</span></label>
         </div>
 
 
@@ -325,8 +327,8 @@
         </div>
 
         <div class="form-group">
-            <input type="text" id="pactive" placeholder="مسؤول المخيم(او المؤسسة)" required>
-            <label>مسؤول المخيم (او المؤسسة)<span class="required-star">*</span></label>
+            <input type="text" id="pactive" placeholder="مسؤول المخيم" required oninput="this.value=this.value.replace(/[^a-zA-Z\u0600-\u06FF\s]/g,'')">
+            <label>مسؤول المخيم <span class="required-star">*</span></label>
         </div>
 
         <div class="form-group">
@@ -340,7 +342,7 @@
         </div>
 
         <div class="form-group">
-            <input type="text" id="person" placeholder="القائمين بالعمل" required>
+            <input type="text" id="person" placeholder="القائمين بالعمل" required oninput="this.value=this.value.replace(/[^a-zA-Z\u0600-\u06FF\s]/g,'')">
             <label>القائمين بالعمل <span class="required-star">*</span></label>
         </div>
 
@@ -361,8 +363,7 @@
             <textarea id="recomen" rows="3" placeholder="التوصيات"></textarea>
             <label>التوصيات</label>
         </div>
-        <!-- قسم أفراد الأسرة الديناميكي -->
-       
+               
 
         
         
@@ -395,10 +396,10 @@
  
     <script>
         // =====================================================
-            // 🔐 إعدادات الاتصال بالخادم الوسيط (Cloudflare Worker)
+            //  إعدادات الاتصال بالخادم الوسيط (Cloudflare Worker)
             // =====================================================
 
-            // عنوان Cloudflare Worker (ضع الرابط الخاص بك هنا)
+            // عنوان Cloudflare Worker 
             const API_URL = "https://empty-snowflake-98a4.disability-erbil.workers.dev/";
 
             
@@ -690,6 +691,34 @@ function resetFormAndClose() {
     <p>جاري معالجة البيانات...</p>
 </div>
 
+<script>
+function updateCamps() {
 
+    const gov = document.getElementById("gov").value;
+    const campSelect = document.getElementById("camp_name");
+
+    // تفريغ القائمة
+    campSelect.innerHTML = '<option value="">اختر المخيم</option>';
+
+    let camps = [];
+
+    if (gov === "اربيل") {
+        camps = ["ديبكة", "الخازر", "حسن شام U2", "حسن شام U3", "بحركة"];
+    }
+    else if (gov === "دهوك") {
+        camps = ["بيرسفي 1", "بيرسفي 2","دركار","جم مشكو","كبرتو1","كبرتو2","باجدكندالا1","باجدكندالا2","خانكي","روانكة", "شاريا", "مامليان", "داودية", "ايسيان", "مام ره شان", "شيخان"];
+    }
+
+    camps.forEach(function(camp) {
+        let option = document.createElement("option");
+        option.value = camp;
+        option.textContent = camp;
+        campSelect.appendChild(option);
+    });
+}
+</script>
+
+
+    
 </body>
 </html>
