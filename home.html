@@ -408,8 +408,13 @@
 
         // متغيرات عامة
         let selectedFiles = [];
-        let familyMembersData = [];
+       // let familyMembersData = [];
 
+            let pendingSubmitEvent = null;
+            let isConfirmedSubmit = false;
+
+
+        
         // إضافة مستمع لتغيير الملفات
         document.getElementById('file-upload').addEventListener('change', function(event) {
             const files = Array.from(event.target.files);
@@ -505,9 +510,19 @@
             });
         }
 // هنا نعدل البيانات بالنسبة للموقع الوسيط
+
+        
         // معالج إرسال النموذج
         document.getElementById("dataForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
+            // تعديل الارسال
+           event.preventDefault();
+            if (!isConfirmedSubmit) {
+                pendingSubmitEvent = event;
+                document.getElementById("confirmModal").style.display = "flex";
+                return;
+            }
+
+isConfirmedSubmit = false;
             
              // ===== التحقق من وجود ملفات (إجباري) =====
             if (selectedFiles.length === 0) {
@@ -670,8 +685,28 @@ function resetFormAndClose() {
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+            // ضفتها حتى اجيك التاكد من الارسال
 
+                    function cancelSubmit() {
+                                        document.getElementById("confirmModal").style.display = "none";
+                                    }
 
+                                    function confirmSubmit() {
+
+                                        document.getElementById("confirmModal").style.display = "none";
+
+                                        isConfirmedSubmit = true;
+
+                                        document.getElementById("dataForm")
+                                            .dispatchEvent(
+                                                new Event("submit", {
+                                                    cancelable: true,
+                                                    bubbles: true
+                                                })
+                                            );
+                                    }
+
+            
 
     </script>
 
@@ -718,6 +753,30 @@ function updateCamps() {
 }
 </script>
 
+                     <!-- نافذة تأكيد الإرسال -->
+                                <div id="confirmModal" class="modal-overlay">
+                                <div class="modal-box">
+                                    <h3>⚠️ تأكيد الإرسال</h3>
+                                    <p>
+                                        سوف يتم إرسال البيانات المدخلة.<br><br>
+                                        هل تريد مراجعة البيانات وتعديلها قبل الإرسال؟
+                                    </p>
+
+                                    <button
+                                        onclick="cancelSubmit()"
+                                        style="background:#f39c12;margin-left:10px;">
+                                        نعم، أريد التعديل
+                                    </button>
+
+                                    <button
+                                        onclick="confirmSubmit()"
+                                        style="background:#27ae60;">
+                                        لا، أرسل البيانات الآن
+                                    </button>
+                                </div>
+                                </div>
+
+    
 
     
 </body>
