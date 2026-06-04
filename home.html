@@ -302,7 +302,7 @@
     
     <form id="dataForm">
              <div class="form-group">
-            <select id="gov" required onchange="updateCamps()>
+            <select id="gov" required onchange="updateCamps()">
                 <option value="">اختر الاجابة</option>
                 <option value="اربيل">اربيل</option>
                 <option value="دهوك">دهوك</option>
@@ -341,8 +341,8 @@
             <label>وصف النشاط <span class="required-star">*</span></label>
         </div>
 
-        <div class="form-group">
-            <input type="text" id="person" placeholder="القائمين بالعمل" required oninput="this.value=this.value.replace(/[^a-zA-Z\u0600-\u06FF\s]/g,'')">
+       <div class="form-group">
+            <input type="text" id="person" placeholder="القائمين بالعمل" required  oninput="this.value=this.value.replace(/[^a-zA-Z\u0600-\u06FF\s]/g,'')">
             <label>القائمين بالعمل <span class="required-star">*</span></label>
         </div>
 
@@ -738,7 +738,7 @@ function updateCamps() {
     let camps = [];
 
     if (gov === "اربيل") {
-        camps = ["ديبكة", "الخازر", "حسن شام U2", "حسن شام U3", "بحركة"];
+        camps = ["ديبكة", "الخازر", "حسن شام U2", "حسن شام U3", "الخازر"];
     }
     else if (gov === "دهوك") {
         camps = ["بيرسفي 1", "بيرسفي 2","دركار","جم مشكو","كبرتو1","كبرتو2","باجدكندالا1","باجدكندالا2","خانكي","روانكة", "شاريا", "مامليان", "داودية", "ايسيان", "مام ره شان", "شيخان"];
