@@ -350,7 +350,8 @@
         <label>عدد المستفيدين <span class="required-star">*</span></label>
                 <!-- هذا هو الـ div الجديد الذي يجمع الحقلين -->
         <div class="input-group">
-            <input type="number" id="no_benfit" placeholder="العدد" required>
+             <input type="text" id="no_benfit" placeholder="العدد" required pattern="[0-9\u0660-\u0669\u06F0-\u06F9]+" oninput="this.value=this.value.replace(/[^0-9\u0660-\u0669\u06F0-\u06F9]/g,'')">
+          
             <select id="benefit_type">
                 <option value="فرد">فرد</option>
                 <option value="عائلة">عائلة</option>
